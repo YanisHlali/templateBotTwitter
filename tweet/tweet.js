@@ -2,7 +2,7 @@ const bot = require("../twit");
 const fs = require("fs");
 const path = require("path");
 
-async function tweet(text) {
+async function createTweet(text) {
   bot.post("statuses/update", { status: text }, (err, result) => {
     if (err) throw err;
   });
@@ -108,7 +108,7 @@ async function tweetWithMedia(text,pathImage) {
 }
 
 module.exports = {
-  tweet,
+  createTweet,
   getTweet,
   deleteTweet,
   searchTweet,
@@ -119,6 +119,5 @@ module.exports = {
   getTweet,
   getMentions,
   getUserTweet,
-  tweetWithMedia,
-  sample
+  tweetWithMedia
 };

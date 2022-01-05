@@ -1,6 +1,6 @@
 const bot = require("../twit");
 
-async function retweet(id) {
+async function createRetweet(id) {
   bot.post("statuses/retweet", { id: id }, (err, result) => {
     if (err) throw err;
   });
@@ -21,6 +21,7 @@ async function getRetweet(userId) {
 }
 
 module.exports = {
-  retweet,
-  cancelRetweet
+  createRetweet,
+  cancelRetweet,
+  getRetweet
 };
