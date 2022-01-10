@@ -8,9 +8,15 @@ async function createTweet(text) {
   });
 }
 
+async function replyTweet(idTweet,text) {
+  bot.post("statuses/update", { in_reply_to_status_id: idTweet, status: text }, (err,result) => {
+    if (err) throw err;
+  });
+};
+
 async function getTweet(tweetId) {
   return new Promise((resolve, reject) => {
-    bot.get("statuses/show", { id: tweetId }, (err, result) => {
+    bot.get("statuses/show/"+tweetId, { id: tweetId }, (err, result) => {
       if (err) throw err;
       resolve(result);
     });
@@ -107,8 +113,50 @@ async function tweetWithMedia(text,pathImage) {
   });
 }
 
+async function statusesFilter() {
+  return new Promise((resolve,reject) => {
+    bot.post('statuses/filter', (err,result) => {
+      if (err) throw err;
+      resolve(result);
+    });
+  });
+};
+
+function test() {
+
+  function pressStart(tweet) {
+      var id = tweet.id_str;
+      var text = tweet.text;
+      var name = tweet.user.screen_name;
+    
+      if (text.endsWith("quoi") == true) {
+    
+        // Start a reply back to the sender
+        var replyText = `@${name} feur`
+        // console.log(text)
+        // Post that tweet
+        bot.post('statuses/update', { status: replyText, in_reply_to_status_id: id }, gameOver);
+    
+      }
+    
+      function gameOver(err, reply) {
+        if (err) {
+          console.log(err.message);
+          console.log("Game Over");
+        } else {
+          console.log('Tweeted: ' + reply.text);
+        }
+      };
+    }
+  
+  let stream = bot.stream('statuses/filter', { track: "quoi" });
+  stream.on('tweet', pressStart);
+  
+  }
+
 module.exports = {
   createTweet,
+  replyTweet,
   getTweet,
   deleteTweet,
   searchTweet,
@@ -119,5 +167,6 @@ module.exports = {
   getTweet,
   getMentions,
   getUserTweet,
-  tweetWithMedia
+  tweetWithMedia,
+  test
 };
