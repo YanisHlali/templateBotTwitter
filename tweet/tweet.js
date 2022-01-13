@@ -1,6 +1,5 @@
 const bot = require("../twit");
 const fs = require("fs");
-const path = require("path");
 
 async function createTweet(text) {
   bot.post("statuses/update", { status: text }, (err, result) => {

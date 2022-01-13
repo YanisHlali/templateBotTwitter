@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/YanisHlali/templateBotTwitter#readme",
   "dependencies": {
+    "node-fetch": "^2.6.1",
     "twit": "^2.2.11"
   },
   "description": ""

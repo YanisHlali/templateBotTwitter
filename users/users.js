@@ -1,54 +1,28 @@
-const { resolve } = require("path/posix");
 const bot = require("../twit");
 
-
-async function getSettings() {
+// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/mute-block-report-users/api-reference/get-blocks-ids
+async function getBlocks() {
     return new Promise((resolve,reject) => {
-        bot.get('account/settings', (err,result) => {
+        bot.get('blocks/ids', (err,result) => {
             if (err) throw err;
             resolve(result);
         });
     });
 };
 
-async function verifyCredentials() {
+// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/mute-block-report-users/api-reference/get-blocks-list
+async function getBlocksList() {
     return new Promise((resolve,reject) => {
-        bot.get('account/verify_credentials', (err,result) => {
+        bot.get('blocks/list', (err,result) => {
             if (err) throw err;
             resolve(result);
         });
     });
 };
 
-async function getBanner(userId) {
-    return new Promise((resolve,reject) => {
-        bot.get('users/profile_banner', { user_id: userId }, (err,result) => {
-            if (err) throw err;
-            resolve(result);
-        });
-    });
-};
-
-async function deleteBanner() {
-    bot.post('account/remove_profile_banner', (err,result) => {
-        if (err) throw err;
-    });
-};
-
-async function updateSettings() {
-    bot.post('account/settings', (err,result) => {
-        if (err) throw err;
-    });
-};
-
-async function updateProfile(name) {
-    
-}
+// async function 
 
 module.exports = {
-    getSettings,
-    verifyCredentials,
-    getBanner,
-    deleteBanner,
-    updateSettings
+    getBlocks,
+    getBlocksList
 }
