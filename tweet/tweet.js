@@ -28,9 +28,9 @@ async function deleteTweet(tweetId) {
   });
 }
 
-async function searchTweet(text) {
+async function searchTweet(query) {
   return new Promise((resolve, reject) => {
-    bot.get("search/tweets", { q: text }, (err, result) => {
+    bot.get("search/tweets", { q: query }, (err, result) => {
       if (err) throw err;
       resolve(result);
     });

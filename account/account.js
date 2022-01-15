@@ -1,4 +1,3 @@
-const { resolve } = require("path/posix");
 const bot = require("../twit");
 const fs = require("fs");
 
@@ -23,16 +22,6 @@ async function updateSettings() {
 async function verifyCredentials() {
     return new Promise((resolve,reject) => {
         bot.get('account/verify_credentials', (err,result) => {
-            if (err) throw err;
-            resolve(result);
-        });
-    });
-};
-
-// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/get-users-profile_banner
-async function getBanner(userId) {
-    return new Promise((resolve,reject) => {
-        bot.get('users/profile_banner', { user_id: userId }, (err,result) => {
             if (err) throw err;
             resolve(result);
         });
@@ -71,24 +60,12 @@ async function updateProfileImage(pathImage) {
     });
 };
 
-// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/get-saved_searches-list
-async function savedSeached() {
-    return new Promise((resolve,reject) => {
-        bot.get('saved_searches/list', (err,result) => {
-            if (err) throw err;
-            resolve(result);
-        });
-    });
-};
-
 module.exports = {
     getSettings,
     updateSettings,
     verifyCredentials,
-    getBanner,
     updateBanner,
     deleteBanner,
     updateProfile,
-    updateProfileImage,
-    savedSeached
+    updateProfileImage
 }
