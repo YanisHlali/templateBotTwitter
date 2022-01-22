@@ -8,9 +8,7 @@ const users = require("./users/users");
 const followers = require("./followers/followers");
 const friends = require("./friends/friends");
 const friendships = require("./friendships/friendships");
-
-friendships.createFriends('1350478031073251332')
-
+const collections = require("./collections/collections");
 
 
 
@@ -19,10 +17,14 @@ friendships.createFriends('1350478031073251332')
 // fonctions qui marchent pas
 
 // profile.updateBanner('./images/unknow.jpg');
+// .then((result) => {
+//     console.log(result)
+// })
 
 // profile.savedSeached()
 // .then((result) => {
 //     console.log(result)
 // })
+
 
 console.log("Starting the twitter bot ...");

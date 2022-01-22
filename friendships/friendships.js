@@ -49,9 +49,9 @@ async function getMyRequest() {
 };
 
 // https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-friendships-show
-async function getRelations() {
+async function getRelations(userId,targetId) {
     return new Promise((resolve,reject) => {
-        bot.get('friendships/show', (err,result) => {
+        bot.get('friendships/show', { source_id: userId, target_id: targetId }, (err,result) => {
             if (err) throw err;
             resolve(result);
         });
@@ -71,10 +71,6 @@ async function deleteFriends(userId) {
         if (err) throw err;
     });
 };
-
-
-
-
 
 module.exports = {
     getRequest,
