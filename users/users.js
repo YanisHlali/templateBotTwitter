@@ -30,6 +30,5 @@ async function searchUsers(query) {
 module.exports = {
     getBanner,
     reportSpam,
-    savedSeached,
     searchUsers
 }

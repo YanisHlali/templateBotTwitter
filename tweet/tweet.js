@@ -1,33 +1,31 @@
 const bot = require("../twit");
 const fs = require("fs");
 
+// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/post-statuses-update
 async function createTweet(text) {
   bot.post("statuses/update", { status: text }, (err, result) => {
     if (err) throw err;
   });
-}
-
-async function replyTweet(idTweet,text) {
-  bot.post("statuses/update", { in_reply_to_status_id: idTweet, status: text }, (err,result) => {
-    if (err) throw err;
-  });
 };
 
+// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-show-id
 async function getTweet(tweetId) {
   return new Promise((resolve, reject) => {
-    bot.get("statuses/show/"+tweetId, { id: tweetId }, (err, result) => {
+    bot.get("statuses/show", { id: tweetId }, (err, result) => {
       if (err) throw err;
       resolve(result);
     });
   });
-}
+};
 
+// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/post-statuses-destroy-id
 async function deleteTweet(tweetId) {
   bot.post("statuses/destroy", { id: tweetId }, (err, result) => {
     if (err) throw err;
   });
-}
+};
 
+// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-users-search
 async function searchTweet(query) {
   return new Promise((resolve, reject) => {
     bot.get("search/tweets", { q: query }, (err, result) => {
@@ -35,8 +33,9 @@ async function searchTweet(query) {
       resolve(result);
     });
   });
-}
+};
 
+// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-statuses-oembed
 async function getTweetOembed(tweetId) {
   return new Promise((resolve, reject) => {
     bot.get("statuses/oembed", { id: tweetId }, (err, result) => {
@@ -44,38 +43,19 @@ async function getTweetOembed(tweetId) {
       resolve(result);
     });
   });
-}
+};
 
-async function likeTweet(tweetId) {
-  bot.post("favorites/create", { id: tweetId }, (err, result) => {
-    if (err) throw err;
-  });
-}
-
-async function cancelLikeTweet(tweetId) {
-  bot.post("favorites/destroy", { id: tweetId }, (err, result) => {
-    if (err) throw err;
-  });
-}
-
-async function getLikeTweet(userId) {
-  return new Promise((resolve, reject) => {
-    bot.get("favorites/list", { user_id: userId }, (err, result) => {
-      if (err) throw err;
-      resolve(result);
-    });
-  });
-}
-
-async function getTweet() {
+// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-home_timeline
+async function getTimeline() {
   return new Promise((resolve, reject) => {
     bot.get("statuses/home_timeline", (err, result) => {
       if (err) throw err;
       resolve(result);
     });
   });
-}
+};
 
+// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-mentions_timeline
 async function getMentions() {
   return new Promise((resolve, reject) => {
     twit.get("statuses/mentions_timeline", (err, result) => {
@@ -83,8 +63,9 @@ async function getMentions() {
       resolve(result);
     });
   });
-}
+};
 
+// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-user_timeline
 async function getUserTweet(userId) {
   return new Promise((resolve, reject) => {
     bot.get("statuses/user_timeline", { id: userId }, (err, result) => {
@@ -92,8 +73,9 @@ async function getUserTweet(userId) {
       resolve(result);
     });
   });
-}
+};
 
+// https://developer.twitter.com/en/docs/twitter-api/v1/media/upload-media/api-reference/post-media-upload
 async function tweetWithMedia(text,pathImage) {
   const image = fs.readFileSync(pathImage);
   const base64image = Buffer.from(image).toString("base64");
@@ -112,7 +94,8 @@ async function tweetWithMedia(text,pathImage) {
   });
 }
 
-async function statusesFilter() {
+// https://developer.twitter.com/en/docs/twitter-api/v1/tweets/filter-realtime/api-reference/post-statuses-filter
+async function filter() {
   return new Promise((resolve,reject) => {
     bot.post('statuses/filter', (err,result) => {
       if (err) throw err;
@@ -121,51 +104,15 @@ async function statusesFilter() {
   });
 };
 
-function test() {
-
-  function pressStart(tweet) {
-      var id = tweet.id_str;
-      var text = tweet.text;
-      var name = tweet.user.screen_name;
-    
-      if (text.endsWith("quoi") == true) {
-    
-        // Start a reply back to the sender
-        var replyText = `@${name} feur`
-        // console.log(text)
-        // Post that tweet
-        bot.post('statuses/update', { status: replyText, in_reply_to_status_id: id }, gameOver);
-    
-      }
-    
-      function gameOver(err, reply) {
-        if (err) {
-          console.log(err.message);
-          console.log("Game Over");
-        } else {
-          console.log('Tweeted: ' + reply.text);
-        }
-      };
-    }
-  
-  let stream = bot.stream('statuses/filter', { track: "quoi" });
-  stream.on('tweet', pressStart);
-  
-  }
-
 module.exports = {
   createTweet,
-  replyTweet,
   getTweet,
   deleteTweet,
   searchTweet,
   getTweetOembed,
-  likeTweet,
-  cancelLikeTweet,
-  getLikeTweet,
-  getTweet,
+  getTimeline,
   getMentions,
   getUserTweet,
   tweetWithMedia,
-  test
+  filter
 };
