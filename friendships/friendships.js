@@ -12,7 +12,7 @@ async function getRequest() {
 };
 
 // https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-friendships-lookup
-async function getLook(userId) {
+async function getRelations(userId) {
     return new Promise((resolve,reject) => {
         bot.get('friendships/lookup', { user_id: userId }, (err,result) => {
             if (err) throw err;
@@ -32,8 +32,8 @@ async function getFriendsNoRetweet() {
 };
 
 // https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/post-friendships-update
-async function updateRetweetFriends(userId) {
-    bot.post('friendships/update', { user_id: userId }, (err,result) => {
+async function updateRetweetFriends() {
+    bot.post('friendships/update', (err,result) => {
         if (err) throw err;
     });
 };
@@ -49,9 +49,9 @@ async function getMyRequest() {
 };
 
 // https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/follow-search-get-users/api-reference/get-friendships-show
-async function getRelations(userId,targetId) {
+async function getRelationsWith() {
     return new Promise((resolve,reject) => {
-        bot.get('friendships/show', { source_id: userId, target_id: targetId }, (err,result) => {
+        bot.get('friendships/show', (err,result) => {
             if (err) throw err;
             resolve(result);
         });
@@ -74,11 +74,11 @@ async function deleteFriends(userId) {
 
 module.exports = {
     getRequest,
-    getLook,
+    getRelations,
     getFriendsNoRetweet,
     updateRetweetFriends,
     getMyRequest,
-    getRelations,
+    getRelationsWith,
     createFriends,
     deleteFriends
 }

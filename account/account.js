@@ -13,7 +13,7 @@ async function getSettings() {
 
 // https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/post-account-settings
 async function updateSettings() {
-    bot.post('account/settings', { lang: 'fr' }, (err,result) => {
+    bot.post('account/settings', (err,result) => {
         if (err) throw err;
     });
 };
@@ -45,8 +45,8 @@ async function deleteBanner() {
 };
 
 // https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/post-account-update_profile
-async function updateProfile(name) {
-    bot.post('account/update_profile', { name: name}, (err,result) => {
+async function updateProfile() {
+    bot.post('account/update_profile', (err,result) => {
         if (err) throw err;
     });
 };

@@ -1,14 +1,60 @@
 
 const bot = require("twit");
-const tweet = require("./tweet/tweet");
-const retweet = require("./retweet/retweet");
-const messages = require("./messages/messages");
-const profile = require("./users/users");
-const users = require("./users/users");
+const account = require("./account/account");
+const blocks = require("./blocks/blocks");
+const collections = require("./collections/collections");
+const direct_messages = require("./direct_messages/direct_messages");
 const followers = require("./followers/followers");
 const friends = require("./friends/friends");
 const friendships = require("./friendships/friendships");
-const collections = require("./collections/collections");
+const mutes = require("./mutes/mutes");
+const retweet = require("./retweet/retweet");
+
+
+// SAVED SEARCHES
+// https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/get-saved_searches-list
+// async function savedSeached() {
+//     return new Promise((resolve,reject) => {
+//         bot.get('saved_searches/list', (err,result) => {
+//             if (err) throw err;
+//             resolve(result);
+//         });
+//     });
+// };
+
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

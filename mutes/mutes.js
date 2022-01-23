@@ -1,8 +1,8 @@
 const bot = require("../twit");
 
 // https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/mute-block-report-users/api-reference/post-mutes-users-create
-async function createMutes(userId) {
-    bot.post('mutes/users/create', { user_id: userId }, (err,result) => {
+async function createMutes() {
+    bot.post('mutes/users/create', (err,result) => {
         if (err) throw err;
     });
 };
@@ -38,6 +38,5 @@ module.exports = {
     getMutes,
     getMutesList,
     createMutes,
-    deleteMutes,
-    reportSpam
+    deleteMutes
 }

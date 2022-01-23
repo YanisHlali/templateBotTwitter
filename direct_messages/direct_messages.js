@@ -15,7 +15,6 @@ async function createMessage(idUser,text) {
             }
         }
     }
-
     bot.post('direct_messages/events/new', message, (err,result) => {
         if (err) throw err;
     });
