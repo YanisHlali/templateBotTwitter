@@ -27,8 +27,18 @@ async function searchUsers(query) {
     });
 };
 
+async function getUser() {
+    return new Promise((resolve,reject) => {
+        bot.get('users/show', (err,result) => {
+            if (err) throw err;
+            resolve(result);
+        });
+    });
+}
+;
 module.exports = {
     getBanner,
     reportSpam,
-    searchUsers
+    searchUsers,
+    getUser
 }
